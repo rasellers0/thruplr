@@ -50,15 +50,15 @@ function Main({ navigation }: any): JSX.Element {
         }
     };
 
-    useEffect(() => {getUserData();}, []);
+    // useEffect(() => {getUserData();}, []);
     let bgColor = isDarkMode ? Colors.black : Colors.white
     return (
         <SafeAreaView style={{backgroundColor: bgColor}}> 
             {/* <Text>{defUserDataString(data)}</Text> */}
             <Card>
                 <Card.Content>
-                    <Section title="FAST App">
-                        Fitness And Strength Tracker App -- start tracking your exercises today!
+                    <Section title="Thruplr">
+                        Dating and networking for the polyamorous commmunity
                     </Section>
                     <NavButton title="Add a new Exercise!" press={() => navigation.navigate('Add Exercise')}></NavButton>
                     <NavButton title="Start a new workout!" press={() => navigation.navigate('Add Workout')}></NavButton>
