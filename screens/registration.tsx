@@ -6,28 +6,51 @@ import { Card, TextInput } from 'react-native-paper';
 import NavButton from '../components/NavButton';
 
 export default function Registration({ navigation }: any): JSX.Element {
+    const [email, setEmail] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    let userObj = {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        password: password
+    }
+
+    // useEffect(() => {
+    //     userObj.email = email;
+    //     userObj.firstName = firstName;
+    //     userObj.lastName = lastName;
+    //     userObj.password = password;
+    //   });
 
     return (
         <SafeAreaView>
             <View style={styles.page}>
                 <View style={styles.inputView}>
                     <Text>Email Address</Text>
-                    <TextInput style={styles.input} placeholder='EMAIL' /*value={username} */
-                            /*onChangeText={setUsername}*/ autoCorrect={false} autoCapitalize='none' />
+                    <TextInput style={styles.input} placeholder='EMAIL' value={email}
+                            onChangeText={setEmail} autoCorrect={false} autoCapitalize='none' />
                     <Text>First Name</Text>
-                    <TextInput style={styles.input} placeholder="First Name" autoCorrect={false} autoCapitalize='none' />
+                    <TextInput style={styles.input} placeholder="First Name" value={firstName}
+                    autoCorrect={false} autoCapitalize='none' onChangeText={setFirstName} />
                     <Text>Last Name</Text>
-                    <TextInput style={styles.input} placeholder="Last Name" autoCorrect={false} autoCapitalize='none' />
+                    <TextInput style={styles.input} placeholder="Last Name" value={lastName}
+                    autoCorrect={false} autoCapitalize='none' onChangeText={setLastName}/>
 
                     <Text>Password</Text>
-                    <TextInput style={styles.input} placeholder="Password" autoCorrect={false} autoCapitalize='none' />
+                    <TextInput style={styles.input} placeholder="Password" value={password}
+                    autoCorrect={false} autoCapitalize='none' onChangeText={setPassword}
+                    secureTextEntry={true}/>
                     <Text>Confirm Password</Text>
-                    <TextInput style={styles.input} placeholder="Confirm Password" autoCorrect={false} autoCapitalize='none' />
+                    <TextInput style={styles.input} secureTextEntry={true}
+                    placeholder="Confirm Password" autoCorrect={false} autoCapitalize='none' />
                 </View>
             
                 <View>
                     <NavButton style={styles.button}
-                    title="Continue" press={() => navigation.navigate('Profile creation')}></NavButton>
+                    title="Continue" press={() => navigation.navigate('Profile creation', {userID: 1, userObj: userObj})}></NavButton>
                 </View>
             </View>
             
