@@ -14,6 +14,7 @@ function Login({ navigation }: any): JSX.Element {
     const [click,setClick] = useState(false);
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const nav:any = useNavigation();
     
     return (
         <SafeAreaView style={styles.container}>
@@ -40,7 +41,7 @@ function Login({ navigation }: any): JSX.Element {
             </View>
 
             <View style={styles.buttonView}>
-                <Pressable style={styles.button} onPress={() => doLogin(username, password)}>
+                <Pressable style={styles.button} onPress={() => doLogin(username, password, nav)}>
                     <Text style={styles.buttonText}>LOGIN</Text>
                 </Pressable>
                 <Text style={styles.optionsText}>OR LOGIN WITH</Text>
@@ -64,19 +65,21 @@ function Login({ navigation }: any): JSX.Element {
     );
 }
 
-async function doLogin(user:string, pass:string){
+async function doLogin(user:string, pass:string, navigation:any){
         let rtnVal:any;
         let jsonData = JSON.stringify({ 'username': user, 'password': pass })
         let fetchParams = {method: "POST", body: jsonData,}
         try {
+            // 192.168.0.175
+            // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
             const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
             rtnVal = await response.json();
             let jsonResp = JSON.parse(rtnVal);
             console.log(jsonResp);
             alert(jsonResp.message);
             if(jsonResp.value === 'success') {
-                const navigation:any = useNavigation();
-                navigation.navigate('TargetScreen', {});
+                
+                navigation.navigate('User Bio', {});
             }
 
         } catch (error) {

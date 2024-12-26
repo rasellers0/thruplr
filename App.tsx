@@ -6,6 +6,7 @@ import Registration from './screens/registration';
 import ProfileCreation from './screens/ProfileCreation';
 import PhotoManagement from './screens/PhotoManagement';
 import ProfileDetail from './screens/ProfileDetail';
+import CardView from './screens/CardView';
 
 
 
@@ -21,6 +22,7 @@ let stackOptions = {headerShown: false}
           <Stack.Screen name="Profile creation" options={stackOptions} component={ProfileCreation} />
           <Stack.Screen name="Photo management" component={PhotoManagement} />
           <Stack.Screen name="Profile Detail" component={ProfileDetail} />
+          <Stack.Screen name="User Bio" component={CardView} />
         </Stack.Navigator>
       </NavigationContainer>
   );
