@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FAB } from 'react-native-paper';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView, ScrollView } from 'react-native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -27,7 +27,9 @@ const UserData:any = {
     lastName: 'Sellers',
     accountType: 'single',
     age: 38,
-    homeTown: 'Montgomerty, Al'
+    location: 'Montgomery, Al',
+    gender: 'he/him',
+    sexuality: 'straight'
 }
 
 
@@ -77,12 +79,37 @@ function PicFrame() {
       );
 }
 
+function InfoField(props:any) {
+    return (
+        <View>
+            <Text style={styles.sectionTitle}>{props.sectionTitle}</Text>
+            <Text style={styles.sectionContent}>{props.sectionContent}</Text>
+        </View>
+    )
+}
+
 function BioDetails() {
     return (
         <View style={styles.bioSection}>
-            <Text style={styles.sectionTitle}>{ UserData.accountType == 'single' ? 'About Me' : 'About Us' }</Text>
-            <Text>{UserData.firstName + ' ' + UserData.lastName}</Text>
-            <Text style={styles.sectionContent}></Text>
+            <ScrollView>
+                <Text style={styles.sectionTitle}>{ UserData.accountType == 'single' ? 'About Me' : 'About Us' }</Text>
+                <Text style={styles.demoDetails}>
+                    {UserData.firstName + ' ' + UserData.lastName}&nbsp;
+                    | {UserData.age}&nbsp;
+                    | {UserData.location}&nbsp;
+                    | {UserData.accountType}&nbsp;
+                    | {UserData.gender}&nbsp;
+                    | {UserData.sexuality}
+                </Text>
+                <Text style={styles.sectionContent}></Text>
+
+                <Text style={styles.sectionTitle}>{UserData.accountType == 'single' ? "Who I'm looking for" : "Who we're looking for"}</Text>
+                <Text style={styles.sectionContent}></Text>
+
+                <Text style={styles.sectionTitle}>{UserData.accountType == 'single' ? "My favorite movies, books, etc" : "Our favorite books, movies, etc"}</Text>
+                <Text style={styles.sectionContent}></Text>
+
+            </ScrollView>
         </View>
     )
 }
@@ -93,16 +120,17 @@ function CardView() {
     }, [])
 
     return (
-        <SafeAreaView >
+        <View >
             <PicFrame></PicFrame>
             <BioDetails></BioDetails>
-        </SafeAreaView>
+        </View>
         
     )
 }
 
 const styles = StyleSheet.create({
     photoViewer: {},
+    demoDetails: {alignSelf:"flex-start", marginLeft:5},
     bioSection: {width:SCREEN_WIDTH, height: SCREEN_HEIGHT/2, position:"absolute", top: SCREEN_HEIGHT/2,
         alignItems:"center", alignContent:"center", },
     sectionTitle: {fontSize: 24, fontWeight: '600'},

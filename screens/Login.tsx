@@ -17,7 +17,7 @@ function Login({ navigation }: any): JSX.Element {
     const nav:any = useNavigation();
     
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <Image source={logo} style={styles.image} resizeMode='contain' />
             <Text style={styles.title}>Login</Text>
             <View style={styles.inputView}>
@@ -61,7 +61,7 @@ function Login({ navigation }: any): JSX.Element {
 
             {/* <Text style={styles.footerText}>Don't Have Account?<Text style={styles.signup}>  Sign Up</Text></Text> */}
 
-        </SafeAreaView>
+        </View>
     );
 }
 
