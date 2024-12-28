@@ -8,6 +8,7 @@ import ProfileCreation from './screens/ProfileCreation';
 import PhotoManagement from './screens/PhotoManagement';
 import ProfileDetail from './screens/ProfileDetail';
 import CardView from './screens/CardView';
+import TabbedDisplay from './screens/TabbedDisplay';
 
 
 
@@ -23,8 +24,9 @@ let stackOptions = {headerShown: false}
           <Stack.Screen name="Profile creation" options={stackOptions} component={ProfileCreation} />
           <Stack.Screen name="Photo management" component={PhotoManagement} options={stackOptions}/>
           <Stack.Screen name="Profile Detail" component={ProfileDetail} options={stackOptions}/>
-          <Stack.Screen name="User Bio" component={CardView} options={stackOptions}/>
+          <Stack.Screen name="Tab Display" component={TabbedDisplay} options={stackOptions}/>
         </Stack.Navigator>
+
       </NavigationContainer>
   );
 }

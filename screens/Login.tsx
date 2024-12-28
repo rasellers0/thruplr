@@ -79,7 +79,7 @@ async function doLogin(user:string, pass:string, navigation:any){
             alert(jsonResp.message);
             if(jsonResp.value === 'success') {
                 
-                navigation.navigate('User Bio', {});
+                navigation.navigate('Tab Display', {});
             }
 
         } catch (error) {

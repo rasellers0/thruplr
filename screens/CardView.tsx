@@ -92,15 +92,24 @@ function BioDetails() {
     return (
         <View style={styles.bioSection}>
             <ScrollView>
-                <Text style={styles.sectionTitle}>{ UserData.accountType == 'single' ? 'About Me' : 'About Us' }</Text>
-                <Text style={styles.demoDetails}>
-                    {UserData.firstName + ' ' + UserData.lastName}&nbsp;
-                    | {UserData.age}&nbsp;
-                    | {UserData.location}&nbsp;
-                    | {UserData.accountType}&nbsp;
-                    | {UserData.gender}&nbsp;
-                    | {UserData.sexuality}
+                <Text style={styles.sectionTitle}>
+                    { UserData.accountType == 'single' ? 'About Me' : 'About Us' }
+                    <View style={styles.editButtonContainer}>
+                    <FAB style={styles.editButton} color="black" icon="account-edit" size="small" />
+                    </View>
+                    
                 </Text>
+                <ScrollView horizontal={true}>
+                    <Text style={styles.demoDetails}>
+                        {UserData.firstName + ' ' + UserData.lastName}&nbsp;
+                        | {UserData.age}&nbsp;
+                        | {UserData.location}&nbsp;
+                        | {UserData.accountType}&nbsp;
+                        | {UserData.gender}&nbsp;
+                        | {UserData.sexuality}
+                    </Text>
+                </ScrollView>
+                
                 <Text style={styles.sectionContent}></Text>
 
                 <Text style={styles.sectionTitle}>{UserData.accountType == 'single' ? "Who I'm looking for" : "Who we're looking for"}</Text>
@@ -130,7 +139,7 @@ function CardView() {
 
 const styles = StyleSheet.create({
     photoViewer: {},
-    demoDetails: {alignSelf:"flex-start", marginLeft:5},
+    demoDetails: {alignSelf:"flex-start", marginLeft:10, marginRight:10},
     bioSection: {width:SCREEN_WIDTH, height: SCREEN_HEIGHT/2, position:"absolute", top: SCREEN_HEIGHT/2,
         alignItems:"center", alignContent:"center", },
     sectionTitle: {fontSize: 24, fontWeight: '600'},
@@ -140,7 +149,10 @@ const styles = StyleSheet.create({
     floatingButton: {width: 60, height: 60, zIndex:99, elevation:99, position: 'absolute',
     top: SCREEN_WIDTH/3},
     backButton: { position: 'absolute', left: 10, },
-    nextButton: { position: 'absolute', right: 10}
+    nextButton: { position: 'absolute', right: 10},
+    editButton: { width: 25, height: 25, borderRadius: 20, backgroundColor:'lightcoral', justifyContent:"center",
+     alignItems:"center", top:4, left:7},
+    editButtonContainer: {alignItems: "flex-end", justifyContent:"center", position:"absolute"}
   })
 
   export default CardView;
