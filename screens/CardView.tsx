@@ -11,14 +11,6 @@ const photoUris: any = [
     '../assets/images/test_images/food5.png'
 ]
 
-const ProfilePhotos:any = [
-  { id: "1", uri: require('../assets/images/test_images/food1.png') },
-  { id: "2", uri: require('../assets/images/test_images/food2.png') },
-  { id: "3", uri: require('../assets/images/test_images/food2.png') },
-  { id: "4", uri: require('../assets/images/test_images/food4.png') },
-  { id: "5", uri: require('../assets/images/test_images/food5.png') },
-]
-
 const UserData:any = {
     userID: 0,
     userName: 'rasellers0',
@@ -37,7 +29,7 @@ function PicFrame() {
     const [currentPhoto, setCurrentPhoto] = useState({id:1, uri:require('../assets/images/test_images/food1.png')});
 
     function getNextPic(dir:string) {
-        let photoCount = ProfilePhotos.length;
+        let photoCount = photoUris.length;
         let nextPicIndex:any = 1;
         if(dir === 'forward'){
             nextPicIndex = (currentPhoto.id == photoCount) ? 1 : currentPhoto.id + 1;
@@ -45,7 +37,6 @@ function PicFrame() {
         else if(dir === 'back') {
             nextPicIndex = (currentPhoto.id == 1) ? photoCount : currentPhoto.id - 1;
         }
-        console.log(nextPicIndex);
         switch(nextPicIndex) {
             case 1:
                 setCurrentPhoto({ id: 1, uri: require('../assets/images/test_images/food1.png') })
@@ -81,10 +72,16 @@ function PicFrame() {
 
 function InfoField(props:any) {
     return (
-        <View>
-            <Text style={styles.sectionTitle}>{props.sectionTitle}</Text>
-            <Text style={styles.sectionContent}>{props.sectionContent}</Text>
-        </View>
+        <ScrollView horizontal={true}>
+                    <Text style={styles.demoDetails}>
+                        {UserData.firstName + ' ' + UserData.lastName}&nbsp;
+                        | {UserData.age}&nbsp;
+                        | {UserData.location}&nbsp;
+                        | {UserData.accountType}&nbsp;
+                        | {UserData.gender}&nbsp;
+                        | {UserData.sexuality}
+                    </Text>
+                </ScrollView>
     )
 }
 
@@ -99,16 +96,11 @@ function BioDetails() {
                     </View>
                     
                 </Text>
-                <ScrollView horizontal={true}>
-                    <Text style={styles.demoDetails}>
-                        {UserData.firstName + ' ' + UserData.lastName}&nbsp;
-                        | {UserData.age}&nbsp;
-                        | {UserData.location}&nbsp;
-                        | {UserData.accountType}&nbsp;
-                        | {UserData.gender}&nbsp;
-                        | {UserData.sexuality}
-                    </Text>
-                </ScrollView>
+                <View style={{marginStart:5, marginEnd:10}}>
+                    <InfoField />
+                </View>
+                
+                
                 
                 <Text style={styles.sectionContent}></Text>
 
@@ -142,9 +134,9 @@ const styles = StyleSheet.create({
     demoDetails: {alignSelf:"flex-start", marginLeft:10, marginRight:10},
     bioSection: {width:SCREEN_WIDTH, height: SCREEN_HEIGHT/2, position:"absolute", top: SCREEN_HEIGHT/2,
         alignItems:"center", alignContent:"center", },
-    sectionTitle: {fontSize: 24, fontWeight: '600'},
+    sectionTitle: {fontSize: 24, fontWeight: '600', marginLeft:5},
     sectionContent: {width:SCREEN_WIDTH - 20, height: SCREEN_HEIGHT/4, borderWidth: 1, 
-        borderColor: 'mediumvioletred', borderRadius: 10, },
+        borderColor: 'mediumvioletred', borderRadius: 10, marginLeft:5 },
     bigImage: {width: SCREEN_WIDTH, height: SCREEN_HEIGHT/2, position: "absolute", top: 0, left: 0 },
     floatingButton: {width: 60, height: 60, zIndex:99, elevation:99, position: 'absolute',
     top: SCREEN_WIDTH/3},
