@@ -14,6 +14,7 @@ function TabbedDisplay(){
             screenOptions={{tabBarActiveTintColor: '#e91e63'}}>
             <Tab.Screen name="FiltersView" component={FiltersView} 
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Filters',
                     tabBarIcon: () => (
                       <MaterialCommunityIcons name="filter" color={'black'} size={12} />
@@ -21,6 +22,7 @@ function TabbedDisplay(){
                   }}/>
             <Tab.Screen name="CardView" component={CardView} 
             options={{
+                headerShown: false,
                 tabBarLabel: 'Cards',
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="cards" color={'black'} size={12} />
@@ -28,6 +30,7 @@ function TabbedDisplay(){
               }}/>
             <Tab.Screen name="MatchesView" component={MatchesView} 
             options={{
+                headerShown: false,
                 tabBarLabel: 'Matches',
                 tabBarIcon: () => (
                   <MaterialCommunityIcons name="heart" color={'black'} size={12} />
