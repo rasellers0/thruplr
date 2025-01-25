@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FAB } from 'react-native-paper';
 import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView, ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -71,6 +72,10 @@ function PicFrame() {
 }
 
 function InfoField(props:any) {
+
+    const user = useSelector((state:any) => state.user);
+    const dispatch = useDispatch();
+
     return (
         <ScrollView horizontal={true}>
                     <Text style={styles.demoDetails}>

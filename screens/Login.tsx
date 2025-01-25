@@ -5,6 +5,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import { Card, TextInput } from 'react-native-paper';
 import NavButton from '../components/NavButton';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 const logo = require("../assets/logo.png")
 const facebook = require("../assets/facebook.png")
 const reddit = require("../assets/reddit.png")
@@ -15,6 +16,9 @@ function Login({ navigation }: any): JSX.Element {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const nav:any = useNavigation();
+
+    const user = useSelector((state:any) => state.user);
+    const dispatch = useDispatch();
     
     return (
         <View style={styles.container}>
@@ -65,10 +69,13 @@ function Login({ navigation }: any): JSX.Element {
     );
 }
 
-async function doLogin(user:string, pass:string, navigation:any){
+async function doLogin(username:string, pass:string, navigation:any){
         let rtnVal:any;
-        let jsonData = JSON.stringify({ 'username': user, 'password': pass })
+        let jsonData = JSON.stringify({ 'username': username, 'password': pass })
         let fetchParams = {method: "POST", body: jsonData,}
+        alert("hit")
+        const user = useSelector((state:any) => state.user);
+        const dispatch = useDispatch();
         try {
             // 192.168.0.175
             // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
