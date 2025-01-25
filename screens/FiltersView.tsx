@@ -112,10 +112,11 @@ function RangeFilter(placeholder?:any) {
 }
 
 function MultiSelectFilter(filterName: any) {
+    let i = 0;
     const [checked, setChecked] = React.useState(false);
     let listOpts = (filterName.filterName === 'genders') ? genderOptions : relationshipOpts;
         return (
-            <View style={styles.selectGroup}>
+            <View style={styles.selectGroup} key={i++}>
                 {
                     listOpts.map((opt) => 
                         (<View style={styles.InputGroup}>

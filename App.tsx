@@ -20,18 +20,25 @@ function App(): JSX.Element {
 let stackOptions = {headerShown: false}
   return (
     <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Login" component={Login} options={stackOptions}/>
-            <Stack.Screen name="Registration" component={Registration} options={stackOptions}/>
-            <Stack.Screen name="Profile creation" options={stackOptions} component={ProfileCreation} />
-            <Stack.Screen name="Photo management" component={PhotoManagement} options={stackOptions}/>
-            <Stack.Screen name="Profile Detail" component={ProfileDetail} options={stackOptions}/>
-            <Stack.Screen name="Tab Display" component={TabbedDisplay} options={stackOptions}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+        <AppBody></AppBody>
+    </Provider>
   );
+}
+
+function AppBody(){
+  let stackOptions = {headerShown: false}
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} options={stackOptions}/>
+        <Stack.Screen name="Registration" component={Registration} options={stackOptions}/>
+        <Stack.Screen name="Profile creation" options={stackOptions} component={ProfileCreation} />
+        <Stack.Screen name="Photo management" component={PhotoManagement} options={stackOptions}/>
+        <Stack.Screen name="Profile Detail" component={ProfileDetail} options={stackOptions}/>
+        <Stack.Screen name="Tab Display" component={TabbedDisplay} options={stackOptions}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 export default App;

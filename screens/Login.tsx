@@ -6,6 +6,8 @@ import { Card, TextInput } from 'react-native-paper';
 import NavButton from '../components/NavButton';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import { setUser, selectUser } from '../store/userSlice'
+import { store } from '../store/store'; 
 const logo = require("../assets/logo.png")
 const facebook = require("../assets/facebook.png")
 const reddit = require("../assets/reddit.png")
@@ -17,8 +19,7 @@ function Login({ navigation }: any): JSX.Element {
     const [password,setPassword] = useState("");
     const nav:any = useNavigation();
 
-    const user = useSelector((state:any) => state.user);
-    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
     
     return (
         <View style={styles.container}>
@@ -73,22 +74,17 @@ async function doLogin(username:string, pass:string, navigation:any){
         let rtnVal:any;
         let jsonData = JSON.stringify({ 'username': username, 'password': pass })
         let fetchParams = {method: "POST", body: jsonData,}
-        alert("hit")
-        const user = useSelector((state:any) => state.user);
-        const dispatch = useDispatch();
+        
         try {
-            // 192.168.0.175
             // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
             const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
             rtnVal = await response.json();
             let jsonResp = JSON.parse(rtnVal);
             console.log(jsonResp);
-            alert(jsonResp.message);
-            if(jsonResp.value === 'success') {
-                
+            if(response.status === 200) {
+                store.dispatch(setUser(jsonResp))
                 navigation.navigate('Tab Display', {});
             }
-
         } catch (error) {
             console.error(error);
         } finally {

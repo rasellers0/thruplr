@@ -3,24 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 
 //copied shamelessly from chatGPT; update with actual user fields
 const initialState = {
-    userId: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-	accountType: '',
-	DOB: '',       
-	Location: '',    
-	Pronouns: '' ,  
-	Orientation: '', 
-	Race1: '',       
-	Race2: '',       
-	Ethnicity: '',   
-	Religion: '',   
-	Politics: '',    
-	Family: '',     
-	FamilyPlans: '', 
-	LookingFor: '',  
-	AboutMe: ''    
+    value: {
+      UserId: '',
+      FirstName: '',
+      MiddleName: '',
+      LastName: '',
+      AccountType: '',
+      DOB: '',       
+      Location: '',    
+      Pronouns: '' ,  
+      Orientation: '', 
+      Race1: '',       
+      Race2: '',       
+      Ethnicity: '',   
+      Religion: '',   
+      Politics: '',    
+      Family: '',     
+      FamilyPlans: '', 
+      LookingFor: '',  
+      AboutMe: ''    
+    }
 };
 
 const userSlice = createSlice({
@@ -28,39 +30,42 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserFirstName(state, action) {
-      state.firstName = action.payload;
+      state.value.FirstName = action.payload;
     },
     setUserMiddleName(state, action) {
-        state.middleName = action.payload;
+        state.value.MiddleName = action.payload;
     },
     setUserLastName(state, action) {
-        state.lastName = action.payload;
+        state.value.LastName = action.payload;
     },
     setUserLocation(state, action) {
-      state.Location = action.payload;
+      state.value.Location = action.payload;
     },
     setUser(state, action) {
-        state.userId = action.payload.userId;
-        state.firstName = action.payload.firstName
-        state.middleName = action.payload.middleName;
-        state.lastName = action.payload.lastName;
-        state.accountType = action.payload.accountType;
-        state.DOB = action.payload.DOB;
-        state.Location = action.payload.Location
-        state.Pronouns = action.payload.Pronouns 
-        state.Orientation = action.payload.Orientation
-        state.Race1 = action.payload.Race1    
-        state.Race2 = action.payload.Race2       
-        state.Ethnicity = action.payload.Ethnicity   
-        state.Religion = action.payload.Religion  
-        state.Politics = action.payload.Politics   
-        state.Family = action.payload.Family    
-        state.FamilyPlans = action.payload.FamilyPlans 
-        state.LookingFor = action.payload.LookingFor  
-        state.AboutMe = action.payload.AboutMe
+        state.value.UserId = action.payload.UserId;
+        state.value.FirstName = action.payload.FirstName
+        state.value.MiddleName = action.payload.MiddleName;
+        state.value.LastName = action.payload.LastName;
+        state.value.AccountType = action.payload.AccountType;
+        state.value.DOB = action.payload.DOB;
+        state.value.Location = action.payload.Location
+        state.value.Pronouns = action.payload.Pronouns 
+        state.value.Orientation = action.payload.Orientation
+        state.value.Race1 = action.payload.Race1    
+        state.value.Race2 = action.payload.Race2       
+        state.value.Ethnicity = action.payload.Ethnicity   
+        state.value.Religion = action.payload.Religion  
+        state.value.Politics = action.payload.Politics   
+        state.value.Family = action.payload.Family    
+        state.value.FamilyPlans = action.payload.FamilyPlans 
+        state.value.LookingFor = action.payload.LookingFor  
+        state.value.AboutMe = action.payload.AboutMe
     }
   }
 });
 
 export const { setUser } = userSlice.actions;
+
+export const selectUser = (state:any) => state.user.value;
+
 export default userSlice.reducer;

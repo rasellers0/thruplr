@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "thruplr",
     "slug": "thruplr",
     "version": "1.0.0",

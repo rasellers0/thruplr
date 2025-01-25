@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FAB } from 'react-native-paper';
 import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { setUser, selectUser } from '../store/userSlice'
+import { store } from '../store/store'; 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -12,18 +14,18 @@ const photoUris: any = [
     '../assets/images/test_images/food5.png'
 ]
 
-const UserData:any = {
-    userID: 0,
-    userName: 'rasellers0',
-    firstName: 'Ryan',
-    middleName: 'Alexander',
-    lastName: 'Sellers',
-    accountType: 'single',
-    age: 38,
-    location: 'Montgomery, Al',
-    gender: 'he/him',
-    sexuality: 'straight'
-}
+// const UserData:any = {
+//     userID: 0,
+//     userName: 'rasellers0',
+//     firstName: 'Ryan',
+//     middleName: 'Alexander',
+//     lastName: 'Sellers',
+//     accountType: 'single',
+//     age: 38,
+//     location: 'Montgomery, Al',
+//     gender: 'he/him',
+//     sexuality: 'straight'
+// }
 
 
 function PicFrame() {
@@ -73,24 +75,25 @@ function PicFrame() {
 
 function InfoField(props:any) {
 
-    const user = useSelector((state:any) => state.user);
+    const UserData = useSelector(selectUser);
     const dispatch = useDispatch();
 
     return (
         <ScrollView horizontal={true}>
                     <Text style={styles.demoDetails}>
-                        {UserData.firstName + ' ' + UserData.lastName}&nbsp;
+                        {UserData.FirstName + ' ' + UserData.LastName}&nbsp;
                         | {UserData.age}&nbsp;
-                        | {UserData.location}&nbsp;
-                        | {UserData.accountType}&nbsp;
+                        | {UserData.Location}&nbsp;
+                        | {UserData.AccountType}&nbsp;
                         | {UserData.gender}&nbsp;
-                        | {UserData.sexuality}
+                        | {UserData.Orientation}
                     </Text>
                 </ScrollView>
     )
 }
 
 function BioDetails() {
+    const UserData = useSelector(selectUser);
     return (
         <View style={styles.bioSection}>
             <ScrollView>
