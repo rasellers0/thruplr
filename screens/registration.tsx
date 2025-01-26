@@ -19,12 +19,6 @@ export default function Registration({ navigation }: any): JSX.Element {
         password: password
     }
 
-    // useEffect(() => {
-    //     userObj.email = email;
-    //     userObj.firstName = firstName;
-    //     userObj.lastName = lastName;
-    //     userObj.password = password;
-    //   });
 
     return (
         <SafeAreaView>

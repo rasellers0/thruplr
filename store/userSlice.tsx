@@ -41,6 +41,9 @@ const userSlice = createSlice({
     setUserLocation(state, action) {
       state.value.Location = action.payload;
     },
+    setUserEmail(state, action) {
+      // state.value.email = action
+    },
     setUser(state, action) {
         state.value.UserId = action.payload.UserId;
         state.value.FirstName = action.payload.FirstName
@@ -64,7 +67,7 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setUserEmail, setUserFirstName, setUserLastName} = userSlice.actions;
 
 export const selectUser = (state:any) => state.user.value;
 
