@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, Safe
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, selectUser } from '../store/userSlice'
 import { store } from '../store/store'; 
+import { useNavigation } from '@react-navigation/native';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -82,7 +83,7 @@ function InfoField(props:any) {
         <ScrollView horizontal={true}>
                     <Text style={styles.demoDetails}>
                         {UserData.FirstName + ' ' + UserData.LastName}&nbsp;
-                        | {UserData.age}&nbsp;
+                        | {UserData.DOB}&nbsp;
                         | {UserData.Location}&nbsp;
                         | {UserData.AccountType}&nbsp;
                         | {UserData.gender}&nbsp;
@@ -92,15 +93,17 @@ function InfoField(props:any) {
     )
 }
 
-function BioDetails() {
+function BioDetails({navigation}:any) {
     const UserData = useSelector(selectUser);
+    const nav:any = useNavigation();
     return (
         <View style={styles.bioSection}>
             <ScrollView>
                 <Text style={styles.sectionTitle}>
                     { UserData.accountType == 'single' ? 'About Me' : 'About Us' }
                     <View style={styles.editButtonContainer}>
-                    <FAB style={styles.editButton} color="black" icon="account-edit" size="small" />
+                    <FAB style={styles.editButton} color="black" icon="account-edit" size="small" 
+                    onPress={() => nav.navigate("Edit Profile")}/>
                     </View>
                     
                 </Text>
@@ -123,7 +126,7 @@ function BioDetails() {
     )
 }
 
-function CardView() {
+function CardView(navigation:any) {
     useEffect(() => {
         
     }, [])
