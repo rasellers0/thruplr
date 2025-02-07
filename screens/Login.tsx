@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
-import {Alert, Switch, Pressable, SafeAreaView, StyleSheet, Text, View, Image} from 'react-native';
+import {Alert, Switch, Pressable, SafeAreaView, StyleSheet, Text, View, Image, Dimensions} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import { Card, TextInput } from 'react-native-paper';
 import NavButton from '../components/NavButton';
@@ -8,18 +9,37 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, selectUser } from '../store/userSlice'
 import { store } from '../store/store'; 
+
 const logo = require("../assets/logo.png")
 const facebook = require("../assets/facebook.png")
 const reddit = require("../assets/reddit.png")
 const insta = require("../assets/insta.png")
 
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const SCREEN_WIDTH = Dimensions.get('window').width
+
 function Login({ navigation }: any): JSX.Element {
-    const [click,setClick] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const nav:any = useNavigation();
 
     const user = useSelector(selectUser);
+
+    // function rememberUser(){
+    //     setRememberMe(rememberMe === false ? true : false)
+    // }
+
+    const rememberUser = async (value:any) => {
+        try {
+            setRememberMe(value === false ? true : false)
+            let userData = {'username': username, 'password': password}
+            const jsonData = JSON.stringify(userData);
+            await AsyncStorage.setItem('userLogin', jsonData);
+        } catch (e) {
+          // saving error
+        }
+      };
     
     return (
         <View style={styles.container}>
@@ -35,7 +55,7 @@ function Login({ navigation }: any): JSX.Element {
 
             <View style={styles.rememberView}>
                 <View style={styles.switch}>
-                    <Switch  value={click} onValueChange={setClick} trackColor={{true : "green" , false : "gray"}} />
+                    <Switch value={rememberMe} onValueChange={rememberUser} trackColor={{true : "green" , false : "gray"}} />
                     <Text style={styles.rememberText}>Remember Me</Text>
                 </View>
                 <View>
@@ -45,10 +65,9 @@ function Login({ navigation }: any): JSX.Element {
                 </View>
             </View>
 
-            <View style={styles.buttonView}>
-                <Pressable style={styles.button} onPress={() => doLogin(username, password, nav)}>
-                    <Text style={styles.buttonText}>LOGIN</Text>
-                </Pressable>
+            <View>
+                <NavButton color="white" title="LOGIN" style={styles.button}
+                    press={() => doLogin(username, password, nav)}></NavButton>
                 <Text style={styles.optionsText}>OR LOGIN WITH</Text>
             </View>
 
@@ -59,23 +78,34 @@ function Login({ navigation }: any): JSX.Element {
             </View>
 
             <View>
-              <NavButton style={styles.button}
-              title="Don't Have Account? Sign Up Here" press={() => navigation.navigate('Registration')}></NavButton>
+              <NavButton style={styles.button} color="white" title="Don't Have Account? Sign Up Here" 
+                press={() => navigation.navigate('Registration')}>
+            </NavButton>
             </View>
             
-
-            {/* <Text style={styles.footerText}>Don't Have Account?<Text style={styles.signup}>  Sign Up</Text></Text> */}
-
         </View>
     );
 }
 
-async function doLogin(username:string, pass:string, navigation:any){
+async function doLogin(username:string, pass:string, rememberMe:any, navigation:any){
         let rtnVal:any;
         let jsonData = JSON.stringify({ 'username': username, 'password': pass })
         let fetchParams = {method: "POST", body: jsonData,}
         
         try {
+            if(rememberMe){
+                const getData = async () => {
+                    try {
+                        const userLogin = await AsyncStorage.getItem('userLogin');
+                        jsonData = userLogin != null ? JSON.stringify(JSON.parse(userLogin)) : jsonData
+                        return jsonData;
+                    } catch (e) {
+                      // error reading value
+                    }
+                };
+            }
+
+
             // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
             const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
             rtnVal = await response.json();
@@ -104,9 +134,9 @@ const styles = StyleSheet.create({
       alignItems : "center", flexDirection : "row", marginBottom : 8},
     switch :{ flexDirection : "row", gap : 1, justifyContent : "center", alignItems : "center"},
     rememberText : {fontSize: 13},
-    forgetText : {fontSize : 11, color : "red"},
-    button : {backgroundColor : "red", height : 55, borderColor : "gray", borderWidth  : 1,  borderRadius : 5,
-      alignItems : "center", justifyContent : "center"},
+    forgetText: {fontSize : 11, color : "red"},
+    button: {backgroundColor: "red", height: 55, borderColor: "gray", borderWidth: 1,  borderRadius: 5,
+      alignItems : "center", justifyContent : "center",  width:SCREEN_WIDTH/2},
     buttonText : {color : "white", fontSize: 18, fontWeight : "bold"}, 
     buttonView :{width :"100%", paddingHorizontal : 50},
     optionsText : {textAlign : "center", paddingVertical : 10, color : "gray", fontSize : 13, marginBottom : 6},

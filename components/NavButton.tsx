@@ -1,19 +1,19 @@
 import { PropsWithChildren } from "react";
-import { View, Button, StyleSheet } from "react-native";
-import { Card } from "react-native-paper";
+import { View, StyleSheet } from "react-native";
+import { FAB,Card } from "react-native-paper";
 
 
 
-type NavButtonProps = PropsWithChildren<{title: string, press: any, style?:any}>;
+type NavButtonProps = PropsWithChildren<{color?:string, title:string, press:any, style?:any}>;
 
-export default function NavButton({children, title, press, style}:NavButtonProps): JSX.Element {
+export default function NavButton({children, color, title, press, style}:NavButtonProps): JSX.Element {
     if(style === null || style === undefined){
         style = styles.roundedButtons;
     }
     return (
-        <View style={style}>
+        <View >
             <Card.Actions>
-                <Button  title={title} onPress={press} color='transparent'/>
+                <FAB style={style} label={title} onPress={press} color={color}/>
             </Card.Actions>
         </View>
     );
