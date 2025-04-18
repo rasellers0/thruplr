@@ -29,18 +29,20 @@ function Login({ navigation }: any): JSX.Element {
     // function rememberUser(){
     //     setRememberMe(rememberMe === false ? true : false)
     // }
-
-    const rememberUser = async (value:any) => {
+    
+    async function rememberUser(value:any) {
+        console.log(value)
         try {
-            setRememberMe(value === false ? true : false)
             let userData = {'username': username, 'password': password}
             const jsonData = JSON.stringify(userData);
             await AsyncStorage.setItem('userLogin', jsonData);
+            setRememberMe(value);
+            // setRememberMe(value === false ? true : false)
         } catch (e) {
-          // saving error
+          console.log(e)
         }
       };
-    
+
     return (
         <View style={styles.container}>
             <Image source={logo} style={styles.image} resizeMode='contain' />
@@ -67,7 +69,7 @@ function Login({ navigation }: any): JSX.Element {
 
             <View>
                 <NavButton color="white" title="LOGIN" style={styles.button}
-                    press={() => doLogin(username, password, nav)}></NavButton>
+                    press={() => doLogin(username, password, null, nav)}></NavButton>
                 <Text style={styles.optionsText}>OR LOGIN WITH</Text>
             </View>
 
