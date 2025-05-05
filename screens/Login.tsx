@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, selectUser } from '../store/userSlice'
 import { store } from '../store/store'; 
 
-const logo = require("../assets/logo.png")
+const logo = require("../assets/thruplr_no_bg.png")
 const facebook = require("../assets/facebook.png")
 const reddit = require("../assets/reddit.png")
 const insta = require("../assets/insta.png")
@@ -69,7 +69,7 @@ function Login({ navigation }: any): JSX.Element {
 
             <View>
                 <NavButton color="white" title="LOGIN" style={styles.button}
-                    press={() => doLogin(username, password, null, nav)}></NavButton>
+                    press={() => doLogin(username, password, rememberMe, nav)}></NavButton>
                 <Text style={styles.optionsText}>OR LOGIN WITH</Text>
             </View>
 
@@ -105,11 +105,16 @@ async function doLogin(username:string, pass:string, rememberMe:any, navigation:
                       // error reading value
                     }
                 };
+            } else if (username === "" || pass === "") {
+                console.log("error")
+                throw new Error("Username and password cannot be null");
             }
 
 
             // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
-            const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
+            //inet 192.168.1.165 netmask 0xffffff00 broadcast 192.168.1.255
+            // const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
+            const response = await fetch('http://192.168.1.165:1323/login', fetchParams);
             rtnVal = await response.json();
             let jsonResp = JSON.parse(rtnVal);
             console.log(jsonResp);
@@ -127,7 +132,7 @@ async function doLogin(username:string, pass:string, rememberMe:any, navigation:
 
 const styles = StyleSheet.create({
     container : {alignItems : "center", paddingTop: 70,},
-    image : {height : 150, width : 160 },
+    image : {height : 310, width : 300 },
     title : {fontSize : 30, fontWeight : "bold", textTransform : "uppercase", textAlign: "center",
      paddingVertical : 40, color : "red"},
     inputView : {gap : 15, width : "100%", paddingHorizontal : 40, marginBottom  :5},
