@@ -18,10 +18,13 @@ const insta = require("../assets/insta.png")
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
+let invalidLogin = false;
+
 function Login({ navigation }: any): JSX.Element {
     const [rememberMe, setRememberMe] = useState(false);
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
+    // const [invalidLogin, setInvalidLogin] = useState(false);
     const nav:any = useNavigation();
 
     const user = useSelector(selectUser);
@@ -47,8 +50,13 @@ function Login({ navigation }: any): JSX.Element {
         <View style={styles.container}>
             <Image source={logo} style={styles.image} resizeMode='contain' />
             <Text style={styles.title}>Login</Text>
+            {invalidLogin && 
+                <Text style={styles.errorMsg}>
+                    Username and/or password is incorrect, please try again
+                </Text>
+            }
             <View style={styles.inputView}>
-                <TextInput style={styles.input} placeholder='EMAIL' value={username} 
+                <TextInput style={styles.input} placeholder='USERNAME' value={username} 
                     onChangeText={setUsername} autoCorrect={false} autoCapitalize='none' />
                 <TextInput style={styles.input} placeholder='PASSWORD' secureTextEntry 
                     value={password} onChangeText={setPassword} autoCorrect={false}
@@ -94,48 +102,55 @@ async function doLogin(username:string, pass:string, rememberMe:any, navigation:
         let jsonData = JSON.stringify({ 'username': username, 'password': pass })
         let fetchParams = {method: "POST", body: jsonData,}
         
+        invalidLogin = false;
         try {
-            if(rememberMe){
+            if (username === "" || pass === "") {
+                invalidLogin = true;
+                console.log(JSON.stringify(selectUser))
+                store.dispatch(setUser({}));
+                return;
+            } else if(rememberMe){
                 const getData = async () => {
                     try {
                         const userLogin = await AsyncStorage.getItem('userLogin');
                         jsonData = userLogin != null ? JSON.stringify(JSON.parse(userLogin)) : jsonData
                         return jsonData;
                     } catch (e) {
+                        invalidLogin = true;
+                        store.dispatch(setUser(selectUser));
                       // error reading value
                     }
                 };
-            } else if (username === "" || pass === "") {
-                console.log("error")
-                throw new Error("Username and password cannot be null");
-            }
+            }  
 
-
-            // const response = await fetch('http://192.168.0.175:1323/login', fetchParams);
-            //inet 192.168.1.165 netmask 0xffffff00 broadcast 192.168.1.255
-            // const response = await fetch('http://192.168.1.156:1323/login', fetchParams);
             const response = await fetch('http://192.168.1.165:1323/login', fetchParams);
             rtnVal = await response.json();
             let jsonResp = JSON.parse(rtnVal);
             console.log(jsonResp);
-            if(response.status === 200) {
-                store.dispatch(setUser(jsonResp))
+            if(response.status === 200 && jsonResp.value !== 'failure') {
+                store.dispatch(setUser(jsonResp));
                 navigation.navigate('Tab Display', {});
+            } else {
+                invalidLogin = true;
+                store.dispatch(setUser({}));
             }
+
         } catch (error) {
-            console.error(error);
+            invalidLogin = true;
+            store.dispatch(setUser({}));
         } finally {
+
         }
 
 }
 
 
 const styles = StyleSheet.create({
-    container : {alignItems : "center", paddingTop: 70,},
-    image : {height : 310, width : 300 },
-    title : {fontSize : 30, fontWeight : "bold", textTransform : "uppercase", textAlign: "center",
-     paddingVertical : 40, color : "red"},
-    inputView : {gap : 15, width : "100%", paddingHorizontal : 40, marginBottom  :5},
+    container : {alignItems : "center", paddingTop: 5,},
+    image : {height : 150, width : 300 },
+    title : {fontSize:30, fontWeight : "bold", textTransform : "uppercase", textAlign: "center",
+     paddingVertical:20, color : "red"},
+    inputView : {gap : 15, width : "100%", paddingHorizontal:30, marginBottom  :5},
     input : {height : 50, paddingHorizontal : 20, borderColor : "red", borderWidth : 1, borderRadius: 7},
     rememberView : {width : "100%", paddingHorizontal : 50, justifyContent: "space-between",
       alignItems : "center", flexDirection : "row", marginBottom : 8},
@@ -150,7 +165,9 @@ const styles = StyleSheet.create({
     mediaIcons : {flexDirection : "row", gap : 15, alignItems: "center", justifyContent : "center", marginBottom : 18},
     icons : {width : 30, height: 30,},
     footerText : {textAlign: "center", color : "gray",},
-    signup : {color : "red", fontSize : 13}
+    signup : {color : "red", fontSize : 13},
+    errorMsg: {backgroundColor: '#c7cfd6', borderRadius:20, fontSize:20, padding:10,
+        marginBottom:25, paddingHorizontal:30}
   })
 
   export default Login;
