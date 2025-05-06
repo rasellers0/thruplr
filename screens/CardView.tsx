@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FAB } from 'react-native-paper';
-import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, Animated, PanResponder, SafeAreaView, ScrollView, BackHandler, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, selectUser } from '../store/userSlice'
 import { store } from '../store/store'; 
@@ -111,8 +111,6 @@ function BioDetails({navigation}:any) {
                     <InfoField />
                 </View>
                 
-                
-                
                 <Text style={styles.sectionContent}></Text>
 
                 <Text style={styles.sectionTitle}>{UserData.accountType == 'single' ? "Who I'm looking for" : "Who we're looking for"}</Text>
@@ -128,8 +126,21 @@ function BioDetails({navigation}:any) {
 
 function CardView(navigation:any) {
     useEffect(() => {
-        
-    }, [])
+        const backAction = () => {
+          Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+            {
+              text: 'Cancel',
+              onPress: () => null,
+              style: 'cancel',
+            },
+            {text: 'YES', onPress: () => BackHandler.exitApp()},
+          ]);
+          return true;
+        };
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction,);
+    
+        return () => backHandler.remove();
+      }, []);
 
     return (
         <View >

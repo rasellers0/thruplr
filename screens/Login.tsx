@@ -147,7 +147,7 @@ async function doLogin(username:string, pass:string, rememberMe:any, navigation:
 
 const styles = StyleSheet.create({
     container : {alignItems : "center", paddingTop: 5,},
-    image : {height : 150, width : 300 },
+    image : {height : 150, width : 300, marginTop:20 },
     title : {fontSize:30, fontWeight : "bold", textTransform : "uppercase", textAlign: "center",
      paddingVertical:20, color : "red"},
     inputView : {gap : 15, width : "100%", paddingHorizontal:30, marginBottom  :5},

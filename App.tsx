@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, BackHandler, Alert } from 'react-native';
 import Login from './screens/Login';
 import Registration from './screens/registration';
 import ProfileCreation from './screens/ProfileCreation';
@@ -18,6 +18,22 @@ import EditProfile from './screens/EditProfile';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction,);
+
+    return () => backHandler.remove();
+  }, []);
 let stackOptions = {headerShown: false}
   return (
     <Provider store={store}>
