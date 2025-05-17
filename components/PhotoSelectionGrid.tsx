@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image, StyleSheet, Dimensions, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, Dimensions, FlatList, Button, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const numColumns = 3;
@@ -21,18 +21,23 @@ for(let i = 0; i < 9; i++){
 }
 
 function PhotoSelectionGrid({ images, onImagePress }: PhotoSelectionGridProps){
-    if(images === null || images.length < 1){
-        images = photoSource;
-    }
-    const req = require.context('../assets/images/test_thumbs/', false, /\.png$/);
+    const [image, setImage] = useState<string | null>(null);
 
-    const getImage = (filename: string): number => {
-        return req(`./${filename}`);
-      };
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images', 'videos'], allowsEditing: true, aspect: [4, 3], quality: 1});
+        if (!result.canceled) { setImage(result.assets[0].uri); }
+    };
+
+    images = (images === null || images.length < 1) ? photoSource : images;
+    const req = require.context('../assets/images/test_thumbs/', false, /\.png$/);
+    const getImage = (filename: string): number => { return req(`./${filename}`); };
 
     const renderItem = ({ item, index }: { item: string; index: number }) => (
         <View style={styles.item}>
-          <Image source={getImage(item)} style={styles.image} />
+            <TouchableOpacity onPress={pickImage}>
+                <Image source={getImage(item)} style={styles.image} />
+            </TouchableOpacity>
         </View>
     );
 
