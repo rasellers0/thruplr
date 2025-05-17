@@ -122,8 +122,11 @@ async function doLogin(username:string, pass:string, rememberMe:any, navigation:
                     }
                 };
             }  
-
-            const response = await fetch('http://192.168.1.165:1323/login', fetchParams);
+            // inet 192.168.0.120 netmask 0xffffff00 broadcast 192.168.0.255
+            const ENDPOINT_URL = 'http://192.168.0.120:1323/login'
+            // const ENDPOINT_URL = 'http://192.168.0.111:1323/login';
+            // const ENDPOINT_URL = 'http://192.168.1.151:1323/login';
+            const response = await fetch(ENDPOINT_URL, fetchParams);
             rtnVal = await response.json();
             let jsonResp = JSON.parse(rtnVal);
             console.log(jsonResp);

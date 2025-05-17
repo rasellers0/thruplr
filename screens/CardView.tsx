@@ -10,27 +10,14 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 const photoUris: any = [
-    '../assets/images/test_images/food1.png', '../assets/images/test_images/food2.png',
-    '../assets/images/test_images/food3.png', '../assets/images/test_images/food4.png',
-    '../assets/images/test_images/food5.png'
-]
-
-// const UserData:any = {
-//     userID: 0,
-//     userName: 'rasellers0',
-//     firstName: 'Ryan',
-//     middleName: 'Alexander',
-//     lastName: 'Sellers',
-//     accountType: 'single',
-//     age: 38,
-//     location: 'Montgomery, Al',
-//     gender: 'he/him',
-//     sexuality: 'straight'
-// }
+    '../assets/images/test_images/bernie1.png', '../assets/images/test_images/bernie2.png',
+    '../assets/images/test_images/bernie3.png', '../assets/images/test_images/bernie4.png',
+    '../assets/images/test_images/bernie5.png'
+];
 
 
 function PicFrame() {
-    const [currentPhoto, setCurrentPhoto] = useState({id:1, uri:require('../assets/images/test_images/food1.png')});
+    const [currentPhoto, setCurrentPhoto] = useState({id:1, uri:require('../assets/images/test_images/bernie1.png')});
 
     function getNextPic(dir:string) {
         let photoCount = photoUris.length;
@@ -43,22 +30,22 @@ function PicFrame() {
         }
         switch(nextPicIndex) {
             case 1:
-                setCurrentPhoto({ id: 1, uri: require('../assets/images/test_images/food1.png') })
+                setCurrentPhoto({ id: 1, uri: require('../assets/images/test_images/bernie1.png') })
                 break;
             case 2 :
-                setCurrentPhoto({ id: 2, uri: require('../assets/images/test_images/food2.png') })
+                setCurrentPhoto({ id: 2, uri: require('../assets/images/test_images/bernie2.png') })
                 break;
             case 3:
-                setCurrentPhoto({ id: 3, uri: require('../assets/images/test_images/food3.png') })
+                setCurrentPhoto({ id: 3, uri: require('../assets/images/test_images/bernie3.png') })
                 break;
             case 4:
-                setCurrentPhoto({ id: 4, uri: require('../assets/images/test_images/food4.png') })
+                setCurrentPhoto({ id: 4, uri: require('../assets/images/test_images/bernie4.png') })
                 break;
             case 5: 
-                setCurrentPhoto({ id: 5, uri: require('../assets/images/test_images/food5.png') })
+                setCurrentPhoto({ id: 5, uri: require('../assets/images/test_images/bernie5.png') })
                 break;
             default:
-                setCurrentPhoto({ id: 1, uri: require('../assets/images/test_images/food1.png') })
+                setCurrentPhoto({ id: 1, uri: require('../assets/images/test_images/bernie1.png') })
         }
         console.log(JSON.stringify(currentPhoto))
     }

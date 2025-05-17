@@ -12,6 +12,7 @@ import TabbedDisplay from './screens/TabbedDisplay';
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import EditProfile from './screens/EditProfile';
+import EditPhotos from './screens/editPhotos';
 
 
 
@@ -54,6 +55,7 @@ function AppBody(){
         <Stack.Screen name="Profile Detail" component={ProfileDetail} options={stackOptions}/>
         <Stack.Screen name="Edit Profile" component={EditProfile} options={stackOptions} />
         <Stack.Screen name="Tab Display" component={TabbedDisplay} options={stackOptions}/>
+        <Stack.Screen name="Edit Photos" component={EditPhotos} options={stackOptions}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
