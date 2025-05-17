@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import CardView from './CardView';
+import CardView from './ViewProfile';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FiltersView from './FiltersView';

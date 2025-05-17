@@ -7,7 +7,7 @@ import Registration from './screens/registration';
 import ProfileCreation from './screens/ProfileCreation';
 import PhotoManagement from './screens/PhotoManagement';
 import ProfileDetail from './screens/ProfileDetail';
-import CardView from './screens/CardView';
+import CardView from './screens/ViewProfile';
 import TabbedDisplay from './screens/TabbedDisplay';
 import { store } from "./store/store";
 import { Provider } from "react-redux";
