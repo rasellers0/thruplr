@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, StatusBar, BackHandler, Alert } from 'react-native';
-import Login from './screens/Login';
 import Registration from './screens/registration';
 import ProfileCreation from './screens/ProfileCreation';
 import PhotoManagement from './screens/PhotoManagement';
@@ -13,6 +12,7 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import EditProfile from './screens/EditProfile';
 import EditPhotos from './screens/editPhotos';
+import Login from './screens/Login';
 
 
 

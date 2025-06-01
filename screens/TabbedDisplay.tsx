@@ -5,6 +5,7 @@ import CardView from './ViewProfile';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FiltersView from './FiltersView';
 import MatchesView from './matchesView';
+import selectMatchView from './selectMatchView';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,7 @@ function TabbedDisplay(){
                       <MaterialCommunityIcons name="filter" color={'black'} size={12} />
                     ),
                   }}/>
-            <Tab.Screen name="CardView" component={CardView} 
+            <Tab.Screen name="CardView" component={selectMatchView} 
             options={{
                 headerShown: false,
                 tabBarLabel: 'Cards',
